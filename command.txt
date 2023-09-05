@@ -1,0 +1,15 @@
+lableme2coco
+python labelme2coco.py hanging_string hanging_string_194 --labels labels.txt
+
+训练
+python tools/train.py work_dirs/yolov3_d53_mstrain-2688_1512_2class_hanging_string.py --work-dir work_dirs/hanging_string --resume-from work_dirs/hanging_string/latest.pth
+
+
+绘制loss曲线
+python tools/analysis_tools/analyze_logs.py plot_curve work_dirs\concrete_weights\20230630_000721.log.json --keys loss_cls --legend loss_cls 
+
+
+测试结果保存
+Python tools/test.py work_dirs\yolov3_d53_mstrain-1920_1080_1class_construction.py work_dirs\230629\construction\best_bbox_mAP_epoch_270.pth --eval bbox --out work_dirs\concrete_weights\results_11.pkl
+结果分析
+Python tools/analysis_tools/analyze_results.py work_dirs\yolov3_d53_mstrain-1920_1080_1class_construction.py work_dirs\concrete_weights\results_11.pkl work_dirs\230629\construction\results_7 --show-score-thr 0.03
